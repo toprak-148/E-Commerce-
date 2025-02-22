@@ -10,8 +10,8 @@ import { ProductCategory } from '../common/product-category';
 export class ProductService {
 
 
-  private baseUrl:string = 'http://localhost:8080/api/products'; // API URL
-  private categoryUrl:string= 'http://localhost:8080/api/product-category';
+  private baseUrl:string = 'http://localhost:8080/api/products'; // API PRODUCTS URL
+  private categoryUrl:string= 'http://localhost:8080/api/product-category'; // API PRODUCT CATEGORY URL
 
   constructor(private http:HttpClient) { }
 
@@ -42,6 +42,16 @@ export class ProductService {
     return this.getProducts(searchUrl);
 
   }
+
+    searchProductsPaginate(thePage:number,
+                           thePageSize:number,
+                          theKeyword:string):Observable<GetResponseProduct>{
+    // @TODO : need to build URL based on keyword, page and size
+    const searchUrl:string = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`
+                             +`&page=${thePage}&size=${thePageSize}`;
+    return this.http.get<GetResponseProduct>(searchUrl);
+  }
+
 
   private getProducts(searchUrl:string):Observable<Product[]>
   {
