@@ -16,12 +16,20 @@ export class ProductService {
   constructor(private http:HttpClient) { }
 
 
+
+  getProduct(theProductId: number):Observable<Product> {
+    const queryUrl:string =`${this.baseUrl}/${theProductId}`;
+    return this.http.get<Product>(queryUrl);
+  }
+
+
+
   getProductListPaginate(thePage:number,
                         thePageSize:number,
                         theCategoryId:number):Observable<GetResponseProduct>{
     // @TODO : need to build URL based on category id , page and size.
-    const searchUrl:string = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
-    +`&page=${thePage}&size=${thePageSize}`;
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
+                    + `&page=${thePage}&size=${thePageSize}`;
     return this.http.get<GetResponseProduct>(searchUrl);
   }
 
@@ -48,7 +56,8 @@ export class ProductService {
                           theKeyword:string):Observable<GetResponseProduct>{
     // @TODO : need to build URL based on keyword, page and size
     const searchUrl:string = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`
-                             +`&page=${thePage}&size=${thePageSize}`;
+                    + `&page=${thePage}&size=${thePageSize}`;
+
     return this.http.get<GetResponseProduct>(searchUrl);
   }
 
@@ -70,11 +79,6 @@ export class ProductService {
 
   }
 
-
-  getProduct(theProductId: number):Observable<Product> {
-    const queryUrl:string =`${this.baseUrl}/${theProductId}`;
-    return this.http.get<Product>(queryUrl);
-  }
 
 
 

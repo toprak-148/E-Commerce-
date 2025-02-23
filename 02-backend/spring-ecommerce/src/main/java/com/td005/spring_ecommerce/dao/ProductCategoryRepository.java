@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 
-/*RepositryRestResource : Bu anotasyon Spring Data REST'in bir parçası ve repository sınıflarını otomatik
+/**
+RepositryRestResource : Bu anotasyon Spring Data REST'in bir parçası ve repository sınıflarını otomatik
    olarak RESTful web servislerine dönüştürmeye yarıyor.
   Yani repository tanımladığında, Spring bu anotasyon sayesinde otomatik olarak bir REST API oluşturuyor!
+
   */
 
 @Repository

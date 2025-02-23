@@ -17,9 +17,9 @@ export class ProductListComponent implements OnInit {
   previousCategoryId: number = 1;
   searchMode:boolean = false;
 // new properties for pagination
-  thePageNumber:number=1;
+  thePageNumber:number=10;
   thePageSize:number=5;
-  theTotalElement:number = 10;
+  theTotalElements:number = 0;
 
   previousKeyword:string = "";
 
@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() =>
-      {this.listProduct();}
+      {this.listProducts();}
     );
 
 
@@ -39,7 +39,7 @@ export class ProductListComponent implements OnInit {
 
 
 
-  listProduct()
+  listProducts()
   {
     this.searchMode = this.route.snapshot.paramMap.has(('keyword'));
     if(this.searchMode)
@@ -84,7 +84,7 @@ export class ProductListComponent implements OnInit {
 
     this.thePageSize = +pageSize;
     this.thePageNumber = 1;
-    this.listProduct();
+    this.listProducts();
 
   }
 
@@ -118,7 +118,7 @@ export class ProductListComponent implements OnInit {
       this.products = data._embedded.products;
       this.thePageNumber = data.page.number + 1;
       this.thePageSize = data.page.size;
-      this.theTotalElement = data.page.totalElement;
+      this.theTotalElements = data.page.totalElement;
     };
   }
 
