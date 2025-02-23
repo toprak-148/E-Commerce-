@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CartItem } from '../common/cart-item';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class CartService {
        //* find the item in the cart based on item id
        for(let tempCartItem of this.cartItems)
        {
-        if(tempCartItem.id == theCartItem.id)
+        if(tempCartItem.id === theCartItem.id)
         {
           existingCartItem = tempCartItem;
           break;
@@ -36,10 +36,10 @@ export class CartService {
        alreadyExistsInCart = (existingCartItem != undefined);
     }
 
-    if(alreadyExistsInCart)
+    if(alreadyExistsInCart && existingCartItem)
     {
       //* increment the quantity
-      existingCartItem.quantity +=1;
+      existingCartItem.quantity++;
 
     }
     else{
@@ -57,10 +57,10 @@ export class CartService {
   {
     let totalPriceValue :number = 0;
     let totalQuantityValue : number = 0;
-    for(let currentCarItem of this.cartItems)
+    for(let currentCartItem of this.cartItems)
     {
-      totalPriceValue += currentCarItem.quantity * currentCarItem.unitPrice;
-      totalQuantityValue += currentCarItem.quantity;
+      totalPriceValue += (currentCartItem.quantity * currentCartItem.unitPrice);
+      totalQuantityValue += currentCartItem.quantity;
     }
 
 
