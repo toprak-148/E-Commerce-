@@ -102,11 +102,170 @@
                 </div>
               </div>
 
+            </div>
+            <!-- Add check box to copy shipping to billing -->
+             <div class="input-space">
+              <label  class="au-checkbox">
+                <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)">
+                <span class="au-checkmark"></span> Billing Address same as Shipping Address
+              </label>
+
+             </div>
+
+            <!-- Billing Address -->
+
+            <div formGroupName="billingAddress" class="form-area">
+              <h3>Billing Address Address</h3>
+              <div class="row">
+                <div class="col-md-2">
+                  <label >Country </label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                    <select formControlName="country">
+                      <option>TO DO</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <label >Street</label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                    <input formControlName="street" type="text">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <label >City</label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                    <input formControlName="city" type="text">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <label >State</label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                    <select formControlName="State">
+                      <option>TO DO</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <label >Zip Code</label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                    <input formControlName="zipCode" type="text">
+                  </div>
+                </div>
+              </div>
+
 
 
             </div>
 
+            <!-- credit cart -->
 
+            <div formGroupName="creditCard" class="form-area">
+
+              <h3>Credit Cart Payment</h3>
+              <div class="row">
+                <div class="col-md-2">
+                  <label >Credit Cart Type </label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                    <select formControlName="cartType">
+                      <option>Visa</option>
+                      <option>Mastercard</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <label >Name on Cart </label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                    <input formControlName="nameOneCart" type="text">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <label >Cart Number </label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                    <input formControlName="cartNumber" type="text">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <label >Security Code</label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                    <input formControlName="securityCode" type="text">
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-md-2">
+                  <label >Expiration Month</label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                      <select formControlName="expirationName">
+                        <option >TO DO</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <label >Expiration Year</label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-space">
+                      <select formControlName="expirationYear">
+                        <option >TO DO</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+            <!-- Order Details -->
+            <div class="form-area">
+              <h3>Review Your Order</h3>
+              <p>Total Quantity : {{totalQuantity}}</p>
+              <p>Total Price: {{totalPrice |currency:'TRY'}} </p>
+            </div>
 
 
             <!-- submit button -->
