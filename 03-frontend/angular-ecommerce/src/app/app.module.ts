@@ -11,6 +11,7 @@ import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
+import { CartDetailComponent } from './components/cart-detail/cart-detail.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { CartStatusComponent } from './components/cart-status/cart-status.compon
     SearchComponent,
     ProductDetailsComponent,
     CartStatusComponent,
+    CartDetailComponent,
 
 
 
