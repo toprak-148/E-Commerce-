@@ -1,12 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable , of} from 'rxjs';
+import { map, Observable , of} from 'rxjs';
+import { Country } from '../common/country';
+import { State } from '../common/state';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormService {
 
-  constructor() { }
+  private countryUrl:string = 'http://localhost:8080/api/countries';
+  private stateUrl:string='http://localhost:8080/api/states';
+
+
+  constructor(private http:HttpClient) { }
 
   getCreditCardMonths(startMonths:number):Observable<number[]>
   {
@@ -38,4 +45,31 @@ export class FormService {
 
   }
 
+  getCountries():Observable<Country[]>
+  {
+    return this.http.get<GetResponseCountries>(this.countryUrl).pipe(
+      map(response => response._embedded.countries)
+    )
+
+  }
+
+  getStates(theCountryCode:string):Observable<State[]>
+  {
+    return this.http.get<GetResponseStates>(this.stateUrl).pipe(
+      map( response => response._embedded.states)
+    )
+  }
+
+}
+
+interface GetResponseCountries{
+  _embedded:{
+    countries:Country[];
+  }
+}
+
+interface GetResponseStates{
+  _embedded:{
+    states:State[];
+  }
 }
