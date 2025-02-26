@@ -1,7 +1,9 @@
 package com.td005.spring_ecommerce.config;
 
+import com.td005.spring_ecommerce.entity.Country;
 import com.td005.spring_ecommerce.entity.Product;
 import com.td005.spring_ecommerce.entity.ProductCategory;
+import com.td005.spring_ecommerce.entity.State;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,20 +33,24 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PATCH};
 
-        // disable HTTP methods for Product: PUT, POST, DELETE and PATCH
-        config.getExposureConfiguration()
-                .forDomainType(Product.class)
-                .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
-                .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+        // disable HTTP methods for  PUT, POST, DELETE and PATCH
+        disabledHttpMethods(Product.class,config,theUnsupportedActions);
+        disabledHttpMethods(ProductCategory.class,config,theUnsupportedActions);
+        disabledHttpMethods(State.class,config,theUnsupportedActions);
+        disabledHttpMethods(Country.class,config,theUnsupportedActions);
 
-        // disable HTTP methods for ProductCategory: PUT, POST, DELETE and PATCH
-        config.getExposureConfiguration()
-                .forDomainType(ProductCategory.class)
-                .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
-                .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
 
         //call an internal helper method
         exposeIds(config);
+
+    }
+
+    private void disabledHttpMethods(Class theClass, RepositoryRestConfiguration config , HttpMethod[] theUnsupportedActions)
+    {
+        config.getExposureConfiguration()
+                .forDomainType(theClass)
+                .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
+                .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
 
     }
 
