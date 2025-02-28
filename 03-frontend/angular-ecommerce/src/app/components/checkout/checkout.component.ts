@@ -124,6 +124,7 @@ export class CheckoutComponent implements OnInit {
         // bug fix for stated
         this.billingAddressStates = [];
 
+
       }
     }
 
