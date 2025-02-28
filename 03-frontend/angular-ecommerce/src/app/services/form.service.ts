@@ -55,7 +55,9 @@ export class FormService {
 
   getStates(theCountryCode:string):Observable<State[]>
   {
-    return this.http.get<GetResponseStates>(this.stateUrl).pipe(
+    //search url
+    const searcStatesUrl : string = `${this.stateUrl}/search/findByCountryCode?code=${theCountryCode}`;
+    return this.http.get<GetResponseStates>(searcStatesUrl).pipe(
       map( response => response._embedded.states)
     )
   }
