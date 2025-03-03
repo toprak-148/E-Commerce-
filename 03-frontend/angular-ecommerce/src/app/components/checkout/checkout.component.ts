@@ -54,11 +54,16 @@ export class CheckoutComponent implements OnInit {
 
       }),
       billingAddress:this.formBuilder.group({
-        street:[''],
-        city:[''],
-        state:[''],
-        country:[''],
-        zipCode:['']
+        street:new FormControl('',[Validators.required,
+                                   Validators.minLength(2),
+                                   ShopValidators.notOnlyWhitespace]),
+        city:new FormControl('',[Validators.required,
+                                 Validators.minLength(2),
+                                 ShopValidators.notOnlyWhitespace]),
+        state:new FormControl('',[Validators.required]),
+        country:new FormControl('',[Validators.required]),
+        zipCode:new FormControl('',[Validators.required,Validators.minLength(2),ShopValidators.notOnlyWhitespace])
+
       }),
       creditCard:this.formBuilder.group({
         cardType:[''],
@@ -108,11 +113,20 @@ export class CheckoutComponent implements OnInit {
   get lastName(){return this.checkoutFormGroup.get('customer.lastName')?.value;}
   get email(){return this.checkoutFormGroup.get('customer.email')?.value;}
 
+
   get shippingAddressStreet(){return this.checkoutFormGroup.get('shippingAddress.street')?.value}
   get shippingAddressCity(){return this.checkoutFormGroup.get('shippingAddress.city')?.value}
   get shippingAddressState(){return this.checkoutFormGroup.get('shippingAddress.state')?.value}
   get shippingAddressZipCode(){return this.checkoutFormGroup.get('shippingAddress.zipCode')?.value}
   get shippingAddressCountry(){return this.checkoutFormGroup.get('shippingAddress.country')?.value}
+
+
+  get billingAddressStreet(){return this.checkoutFormGroup.get('billingAddress.street')?.value}
+  get billingAddressCity(){return this.checkoutFormGroup.get('billingAddress.city')?.value}
+  get billingAddressState(){return this.checkoutFormGroup.get('billingAddress.state')?.value}
+  get billingAddressZipCode(){return this.checkoutFormGroup.get('billingAddress.zipCode')?.value}
+  get billingAddressCountry(){return this.checkoutFormGroup.get('billingAddress.country')?.value}
+
 
 
 
