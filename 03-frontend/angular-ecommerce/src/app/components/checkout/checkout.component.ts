@@ -21,7 +21,7 @@ export class CheckoutComponent implements OnInit {
   totalPrice:number = 0.0;
   totalQuantity:number = 0;
 
-  creaditCardYears:number[] = [];
+  creditCardYears:number[] = [];
   creditCardMonths:number[] = [];
 
   countries:Country[] = [];
@@ -66,10 +66,10 @@ export class CheckoutComponent implements OnInit {
 
       }),
       creditCard:this.formBuilder.group({
-        cardType:[''],
-        nameOneCard:[''],
-        cardNumber:[''],
-        securityCode:[''],
+        cardType:new FormControl('',[Validators.required]),
+        nameOneCard:new FormControl('',[Validators.required,Validators.minLength(2)]),
+        cardNumber:new FormControl('',[Validators.required,Validators.pattern('[0-9]{16}')]),
+        securityCode:new FormControl('',[Validators.required , Validators.pattern('[0-9]{3}')]),
         expirationMonth:[''],
         expirationYear:['']
       }),
@@ -91,7 +91,7 @@ export class CheckoutComponent implements OnInit {
     this.formService.getCreditCardYears().subscribe(
       data => {
         console.log('Retreive credit card years : ' + JSON.stringify(data));
-        this.creaditCardYears = data;
+        this.creditCardYears = data;
       }
     );
 
@@ -126,6 +126,12 @@ export class CheckoutComponent implements OnInit {
   get billingAddressState(){return this.checkoutFormGroup.get('billingAddress.state')?.value}
   get billingAddressZipCode(){return this.checkoutFormGroup.get('billingAddress.zipCode')?.value}
   get billingAddressCountry(){return this.checkoutFormGroup.get('billingAddress.country')?.value}
+
+
+  get creditCardType(){return this.checkoutFormGroup.get('creditCard.cardType')?.value}
+  get creditCardNameOnCard(){return this.checkoutFormGroup.get('creditCard.nameOnCard')?.value}
+  get creditCardNumber(){return this.checkoutFormGroup.get('creditCard.cardNumber')?.value}
+  get creditCardSecurityCode(){ return this.checkoutFormGroup.get('creditCard.securityCode')?.value}
 
 
 
