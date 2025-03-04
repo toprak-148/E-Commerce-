@@ -6,6 +6,7 @@ import lombok.Data;
 // Bu class dbden gelen verileri geri front-end kısmına iletmek için kullanılır Json olarak bir java nesnesi(response)
 @Data
 public class PurchaseResponse {
-    private String orderTrackingNumber;
+    private final String orderTrackingNumber;
+
 
 }
