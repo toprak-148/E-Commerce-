@@ -4,6 +4,7 @@ import { start } from 'repl';
 import { NEVER, never, Observable } from 'rxjs';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
+import { CartService } from 'src/app/services/cart.service';
 import { FormService } from 'src/app/services/form.service';
 import { ShopValidators } from 'src/app/validators/shop-validators';
 
@@ -30,9 +31,12 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  constructor(private formBuilder:FormBuilder,private formService:FormService) { }
+  constructor(private formBuilder:FormBuilder,private formService:FormService,private cartService:CartService) { }
 
   ngOnInit(): void {
+
+
+    this.reviewCartDetails();
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer:this.formBuilder.group({
@@ -230,6 +234,23 @@ export class CheckoutComponent implements OnInit {
     }
 
 
+    reviewCartDetails()
+    {
+      //subscribe to cartService.totalQuantity
 
+      this.cartService.totalQuantity.subscribe(
+        totalQuantity=>{
+            this.totalQuantity = totalQuantity;
+
+        }
+      )
+
+      // subscribe to cartService.totalPrice
+      this.cartService.totalPrice.subscribe(
+        totalPrice =>{
+          this.totalPrice = totalPrice;
+        }
+      )
+    }
 
 }
