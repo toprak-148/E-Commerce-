@@ -3,7 +3,7 @@ package com.td005.spring_ecommerce.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.query.Order;
+
 
 import java.math.BigDecimal;
 
@@ -27,4 +27,14 @@ public class OrderItem {
 
     @Column(name = "product_id")
     private Long productId;
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+
+
+
 }
