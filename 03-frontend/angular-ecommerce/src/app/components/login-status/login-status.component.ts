@@ -1,8 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { OKTA_AUTH } from '@okta/okta-angular';
-import { OktaAuth } from '@okta/okta-auth-js';
-import OktaSingIn from '@okta/okta-signin-widget';
-import myAppConfig from 'src/app/config/my-app-config';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-login-status',
   templateUrl: './login-status.component.html',
@@ -10,45 +7,9 @@ import myAppConfig from 'src/app/config/my-app-config';
 })
 export class LoginStatusComponent implements OnInit {
 
-
-  oktaSignIn:any;
-
-  constructor(@Inject(OKTA_AUTH) private oktaAuth:OktaAuth) {
-    this.oktaSignIn = new this.oktaSignIn({
-      logo:'../../../favicon.ico',
-      baseUrl:myAppConfig.oidc.issuer.split('/oauth2')[0],
-      clientId:myAppConfig.oidc.clientId,
-      redirectUri:myAppConfig.oidc.redirectUri,
-      authParams:{
-        pkce:true,
-        issuer:myAppConfig.oidc.issuer,
-        scopes:myAppConfig.oidc.scopes
-      }
-    });
-
-
-
-  }
+  constructor() { }
 
   ngOnInit(): void {
-    this.oktaSignIn.remove();
-    this.oktaSignIn.renderEl({
-      el:'#okta-sign-in-widget' // this name should be same as div tag id in login.component.html
-
-    },
-    (response:any) => {
-      if(response.status==='SUCCESS')
-      {
-        this.oktaAuth.signInWithRedirect();
-
-      }
-    },
-    (error:any)=>{
-      throw error;
-    }
-  );
-
-
   }
 
 }

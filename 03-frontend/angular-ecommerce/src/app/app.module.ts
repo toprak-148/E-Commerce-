@@ -15,6 +15,7 @@ import { CartDetailComponent } from './components/cart-detail/cart-detail.compon
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CartService } from './services/cart.service';
+import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 
 
@@ -28,6 +29,7 @@ import { LoginStatusComponent } from './components/login-status/login-status.com
     CartStatusComponent,
     CartDetailComponent,
     CheckoutComponent,
+    LoginComponent,
     LoginStatusComponent,
   ],
   imports: [
