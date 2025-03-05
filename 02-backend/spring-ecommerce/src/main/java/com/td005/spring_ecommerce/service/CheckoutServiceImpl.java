@@ -7,7 +7,6 @@ import com.td005.spring_ecommerce.entity.Customer;
 import com.td005.spring_ecommerce.entity.Order;
 import com.td005.spring_ecommerce.entity.OrderItem;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

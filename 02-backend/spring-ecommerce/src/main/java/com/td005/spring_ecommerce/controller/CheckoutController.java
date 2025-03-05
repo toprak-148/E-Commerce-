@@ -3,7 +3,6 @@ package com.td005.spring_ecommerce.controller;
 import com.td005.spring_ecommerce.dto.Purchase;
 import com.td005.spring_ecommerce.dto.PurchaseResponse;
 import com.td005.spring_ecommerce.service.CheckoutService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
