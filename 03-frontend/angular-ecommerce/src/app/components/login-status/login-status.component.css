@@ -1,0 +1,16 @@
+/*
+  *copy from style.css *> .au-btn.submit
+  *Rename as .security-btn
+  *Change border to 10px
+*/
+
+.security-btn{
+  position: relative;
+  right: 0;
+  min-width: 95px;
+  color:#fff;
+  border:10px solid #205b8d;
+  border-radius: 43px;
+  background-color: #205b8d;
+
+}
