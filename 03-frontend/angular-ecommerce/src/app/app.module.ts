@@ -15,6 +15,7 @@ import { CartDetailComponent } from './components/cart-detail/cart-detail.compon
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CartService } from './services/cart.service';
+import { LoginStatusComponent } from './components/login-status/login-status.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { CartService } from './services/cart.service';
     CartStatusComponent,
     CartDetailComponent,
     CheckoutComponent,
+    LoginStatusComponent,
   ],
   imports: [
     BrowserModule,
