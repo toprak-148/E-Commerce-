@@ -15,7 +15,26 @@
 
 }
 
+/* copy from styles.css -> .from-header */
+/* rename as .login-status-header */
+.login-status-header{
+  display: flex;
 
+}
+
+/*
+  copy from styles.css -> au-input
+  rename as .login-status-user-info
+  -remove solid font-size color
+*/
+
+.login-status-user-info{
+  line-height: 43px;
+  border:1px;
+  padding: 0 17px;
+  border-radius: 3px;
+  transition: all .5s ease;
+}
 
 
 
