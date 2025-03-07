@@ -46,6 +46,18 @@ public class CheckoutServiceImpl implements CheckoutService{
 
         //populate customer with order
         Customer customer = purchase.getCustomer();
+
+        String theEmail = customer.getEmail();
+        // Musteri eger dbde mevcut ise müsteri havuzunu kullanarak  mail adresini mail yolu ile bul
+        Customer customerFromDb = customerRepository.findByEmail(theEmail);
+
+        if(customerFromDb != null) {
+            // musteri bulundu. bu musteriye gore degerlendir
+            customer = customerFromDb;
+        }
+
+
+
         customer.add(order);
 
         // save to database
