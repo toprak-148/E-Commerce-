@@ -12,6 +12,9 @@ export class LoginStatusComponent implements OnInit {
   isAuthenticated:boolean = false;
   userFullName:string='';
 
+  //I used sessionStorage to keep the order history from disappearing.
+  storage : Storage = sessionStorage;
+
 
   constructor(private oktaAuthService:OktaAuthStateService , @Inject(OKTA_AUTH) private oktaAuth : OktaAuth) {
 
@@ -37,6 +40,11 @@ export class LoginStatusComponent implements OnInit {
       this.oktaAuth.getUser().then(
         (res)=>{
           this.userFullName = res.name as string;
+          //retrieve the users's email from authentication response
+          const theEmail = res.email;
+
+          //now storage the email in browser storage
+          this.storage.setItem('userEmail',JSON.stringify(theEmail));
         }
       )
     }
@@ -49,5 +57,9 @@ export class LoginStatusComponent implements OnInit {
   this.oktaAuth.signOut();
 
   }
+
+
+
+
 
 }
