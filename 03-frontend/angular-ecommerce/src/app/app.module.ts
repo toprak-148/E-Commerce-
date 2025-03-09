@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 import { ProductCategoryComponent } from './components/product-category/product-category.component';
 import { SearchComponent } from './components/search/search.component';
@@ -21,6 +21,7 @@ import { OktaAuth } from '@okta/okta-auth-js';
 import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { AuthInceptorService } from './services/auth-inceptor.service';
 
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -49,7 +50,9 @@ const oktaAuth = new OktaAuth(oktaConfig);
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [ProductService,{provide:OKTA_CONFIG,useValue:{oktaAuth}}],
+  providers: [ProductService,{provide:OKTA_CONFIG,useValue:{oktaAuth}},
+    {provide:HTTP_INTERCEPTORS,useClass:AuthInceptorService,multi:true}
+  ],
   bootstrap: [AppComponent],
 
 })
