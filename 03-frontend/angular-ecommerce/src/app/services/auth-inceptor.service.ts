@@ -7,6 +7,8 @@ import {from,lastValueFrom,Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
+ //HttpInceptor : On ucta giris yapilmadan sipraris gecmislerini gormeyi engelleyen yapiyi olusturmak icin kullanilir.
 export class AuthInceptorService implements HttpInterceptor {
 
   constructor(@Inject(OKTA_AUTH) private oktaAuth:OktaAuth) {
@@ -51,6 +53,7 @@ A Promise represents the result of an asynchronous operation.
 The handleAccess function processes HTTP requests asynchronously and returns an HttpEvent.
 
   */
+
    private async handleAccess(request:HttpRequest<any>,next:HttpHandler):Promise<HttpEvent<any>>
    {
     //only add access token for secured endpoints
@@ -63,7 +66,7 @@ The handleAccess function processes HTTP requests asynchronously and returns an 
       //clone the request and add new header with access token
       request = request.clone({
         setHeaders:{
-          Authhorization:'Bearer' + accessToken
+          Authhorization:'Bearer ' + accessToken
         }
       });
 
