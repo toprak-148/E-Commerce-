@@ -3,6 +3,7 @@ import { HttpEvent,HttpHandler,HttpInterceptor,HttpRequest } from '@angular/comm
 import { OktaAuth } from '@okta/okta-auth-js';
 import { OKTA_AUTH } from '@okta/okta-angular';
 import {from,lastValueFrom,Observable} from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,8 @@ The handleAccess function processes HTTP requests asynchronously and returns an 
    private async handleAccess(request:HttpRequest<any>,next:HttpHandler):Promise<HttpEvent<any>>
    {
     //only add access token for secured endpoints
-    const secureEndpoints = ['http://localhost:8080/api/orders'];
+    const theEndpoint = environment.shopAppUrl + '/orders';
+    const secureEndpoints = [theEndpoint];
     if(secureEndpoints.some(url=>request.urlWithParams.includes(url)))
     {
       // get access token
