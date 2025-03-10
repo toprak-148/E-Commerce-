@@ -156,13 +156,17 @@ export class CheckoutComponent implements OnInit {
     this.cardElement.mount('#card-element');
 
     //* add event binding for the 'change' event on the card element
-    this.cardElement.on('change', (event:any=>{
+    this.cardElement.on('change', (event:any)=>{
+      // get a handle to card-errors element
       this.displayError = document.getElementById('card-errors');
       if(event.complete)
       {
         this.displayError.textContent= "";
+      }else if(event.error){
+        // show validation error to customer
+        this.displayError.textContent = event.error.message;
       }
-    }));
+    });
 
   }
 
@@ -269,6 +273,59 @@ export class CheckoutComponent implements OnInit {
       //* populate purchase - order and orderItems
       purchase.order = order;
       purchase.orderItem = orderItems;
+
+      // compute payment info
+      this.paymentInfo.amount = this.totalPrice * 100;
+      this.paymentInfo.currency = 'USD';
+
+      //* if valid form then
+      //* - create payment intent
+      //* - confirm card payment
+      //* - place order
+      if(!this.checkoutFormGroup.invalid && this.displayError.textContent === "")
+      {
+        this.checkoutService.createPaymentIntent(this.paymentInfo).subscribe(
+          (paymentIntentResponse)=>{
+            this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,
+              {
+                payment_method:{
+                  card:this.cardElement
+                }
+              },{handleActions:false}
+
+            )
+            .then((result:any)=>{
+              if(result.error){
+                // inform the customer there was an error
+                alert(`There was an error : ${result.error.message}`);
+              }
+              else{
+                // call REST API via the checkoutService
+                this.checkoutService.placeOrder(purchase).subscribe(
+                   {
+                    next:(response:any)=>{
+                      alert(`Your order has been received.\nOrder tracking number:${response.orderTrackingNumber}`);
+                      //reset card
+                      this.resetCart();
+
+                    },
+                    error:(err:any)=>{
+                      alert(`There was an error : ${err.message}`);
+                    }
+                   }
+
+
+                );
+              }
+            });
+          }
+        );
+      }else{
+        this.checkoutFormGroup.markAllAsTouched();
+
+      }
+
+
 
       //* call REST API via the CheckoutService
       this.checkoutService.placeOrder(purchase).subscribe(
