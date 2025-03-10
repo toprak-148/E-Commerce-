@@ -5,12 +5,14 @@ import { Observable } from 'rxjs';
 import { Country } from 'src/app/common/country';
 import { Order } from 'src/app/common/order';
 import { OrderItem } from 'src/app/common/order-item';
+import { PaymentInfo } from 'src/app/common/payment-info';
 import { Purchase } from 'src/app/common/purchase';
 import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { FormService } from 'src/app/services/form.service';
 import { ShopValidators } from 'src/app/validators/shop-validators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-checkout',
@@ -36,6 +38,13 @@ export class CheckoutComponent implements OnInit {
 
   storage:Storage=sessionStorage;
 
+  // initialize Stripe API
+  stripe = Stripe(environment.stripePublishableKey);
+  paymentInfo:PaymentInfo = new PaymentInfo();
+
+  cardElement:any;
+  displayError : any = "";
+
 
 
   constructor(private formBuilder:FormBuilder,
@@ -46,12 +55,18 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // setup stripe payment form
+
+    this.setupStripePaymentForm();
+
+
+    this.reviewCartDetails();
     // read the user's email address from browser storage
 
     const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
 
 
-    this.reviewCartDetails();
+
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer:this.formBuilder.group({
@@ -85,18 +100,22 @@ export class CheckoutComponent implements OnInit {
 
       }),
       creditCard:this.formBuilder.group({
+        /*
         cardType:new FormControl('',[Validators.required]),
         nameOneCard:new FormControl('',[Validators.required,Validators.minLength(2)]),
         cardNumber:new FormControl('',[Validators.required,Validators.pattern('[0-9]{16}')]),
         securityCode:new FormControl('',[Validators.required , Validators.pattern('[0-9]{3}')]),
         expirationMonth:[''],
         expirationYear:['']
+        */
+
       }),
     });
 
 
     //* populate credit card months */
-
+    //! stripe structure used
+    /*
     const startMonth:number = new Date().getMonth() + 1;
     console.log('start month: ' + startMonth);
 
@@ -113,6 +132,7 @@ export class CheckoutComponent implements OnInit {
         this.creditCardYears = data;
       }
     );
+    */
 
 
     //populate countries
