@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { todo } from 'node:test';
 import { Observable } from 'rxjs';
 import { Country } from 'src/app/common/country';
 import { Order } from 'src/app/common/order';
@@ -143,11 +144,25 @@ export class CheckoutComponent implements OnInit {
       }
     );
 
+  }
+  setupStripePaymentForm() {
+    //* get a handle to stripe element
+    var element = this.stripe.elements();
 
+    //* create a card element .. and hide the zip-code field
+    this.cardElement = element.create('card',{hidePostalCode:true});
 
+    //* add an instance of card UI component into the 'card-element' div
+    this.cardElement.mount('#card-element');
 
-
-
+    //* add event binding for the 'change' event on the card element
+    this.cardElement.on('change', (event:any=>{
+      this.displayError = document.getElementById('card-errors');
+      if(event.complete)
+      {
+        this.displayError.textContent= "";
+      }
+    }));
 
   }
 
